@@ -20,8 +20,10 @@ import Data.List (sortBy)
 import Data.Ord
 
 
--- Exercise A1
 
+
+
+-- Exercise A1
 histogram :: Int -> [Int] -> [Int]
 histogram a xs 
      | a < 0 = error "Negative input"
@@ -37,6 +39,9 @@ numTimesFound _ [] = 0
 numTimesFound x xs = (length . filter (== x)) xs
 
 
+
+
+
 -- Exercise A2
 approxSqrt :: Double -> Double -> Double
 approxSqrt n e
@@ -50,11 +55,18 @@ approxSqrt n e
                           where y = (x + d/x)/ 2
 
 
+
+
+
 -- Exercise A3
 longestCommonSubsequence :: Eq a => [[a]] -> [a]
 longestCommonSubsequence [] = []
 longestCommonSubsequence xs = Data.Foldable.foldl1 intersection' xs
                                  where intersection' xs ys = xs \\ (xs \\ ys)
+                                 
+                                 
+                                 
+                                 
 
 -- Exercise A4
 metric :: Point a -> Point a -> Double
@@ -66,6 +78,8 @@ type Metric a = Point a -> Point a -> Double
 neighbours :: Int -> Metric a -> Point a -> [Point a] -> [(Point a)] 
 neighbours k f p xs = take k list
     where list = map (fst) ( sortBy (compare `on` snd) [(x, f p x) | x <- xs])
+
+
 
 
 
@@ -98,8 +112,8 @@ findBonding2 xs =  xs ++ [(y,x)| (x,y) <- xs]
 
 
 
--- Exercise A6
 
+-- Exercise A6
 data VTree a = Leaf | Node (VTree a) a Int (VTree a) deriving (Eq,Show,Generic,Generic1)
 data Direction a = L a Int (VTree a) | R a Int (VTree a) deriving (Eq,Show,Generic,Generic1)
 type Trail a = [Direction a]
@@ -111,8 +125,11 @@ instance NFData a => NFData (Direction a)
 insertFromCurrentNode :: Ord a => a -> Zipper a -> Zipper a
 insertFromCurrentNode v z = (Leaf,[])
 
--- Exercise A7
 
+
+
+
+-- Exercise A7
 data Instruction = Add | Mul | Dup | Pop deriving (Eq,Ord,Show,Generic)
 type Stack = [Int]
 type SMProg = [Instruction] 
@@ -128,6 +145,10 @@ evalInst xs (Mul:ys)  | (length(xs) >= 2) = evalInst (([xs !! 0  * xs !! 1] ++ x
                       | otherwise = error "Empty"
 evalInst xs (Dup:ys) = evalInst ([xs !! 0] ++ xs) ys
 evalInst xs (Pop:ys) = evalInst (xs \\ [xs !! 0]) ys 
+
+
+
+
 
 -- Exercise A8
 
@@ -151,6 +172,10 @@ maxTail (x:xs) z ys | (snd(x) < snd(z)) = maxTail xs z ys
 
 findMaxReducers xs | length xs > 0 = [fst(x) | x <- findMaxReducers1 (xs)]
                    | length xs == 0 = []
+
+
+
+
 
 -- Exercise A9
 
